@@ -5,57 +5,46 @@
 Dados_Pessoas dados[1000];
 Dados_Conta operacoes[100];
 
-void cadastraUsuario(int *numeroClientes, Dados_Pessoas novoUsuario){
-    
+void cadastraUsuario(int numeroClientes){ //verificar cpf
+  printf("Digite o nome do usuario: ");
+  scanf("%s", dados[numeroClientes].nome);
 
-    printf("Digite o nome do usuario");
-    scanf("%s", novoUsuario.nome);
+  printf("Digite o Cpf do usuario: ");
+  scanf("%s", dados[numeroClientes].cpf);
 
-    printf("Digite o Cpf do usuario");
-    scanf("%s", novoUsuario.cpf);
+  printf("Digite a senha do usuario: ");
+  scanf("%d", &dados[numeroClientes].senha);
 
-    printf("Digite a senha do usuario");
-    scanf("%d", &novoUsuario.senha);
-
-    printf("Digite o valor inicial da Conta");
-    scanf("%lf", &novoUsuario.valor_incial);
-  
-
-  
+  printf("Digite o valor inicial da Conta: ");
+  scanf("%lf", &dados[numeroClientes].valor_incial);
 }
 
-void tipoConta(int *numeroClientes, int escolhaConta,Dados_Pessoas novoUsuario){
+void tipoConta(int numeroClientes, int escolhaConta){
+  printf("Escolha a o tipo da sua conta:\n");
+  printf("Digite 1 - Para escolher a conta Comum\n");
+  printf("Digite 2 - Para escolher a conta Premium\n");
+  scanf("%d", &escolhaConta);
   if (escolhaConta == 1){
-    strcpy(novoUsuario.tipo_conta, "Comum");
+    strcpy(dados[numeroClientes].tipo_conta, "Comum");
   } else if(escolhaConta == 2) {
-    strcpy(novoUsuario.tipo_conta, "Premium");
+    strcpy(dados[numeroClientes].tipo_conta, "Premium");
   } else {
       printf("Digite um numero valido");
   }
 }
 
-int verificaCPF(char cpf[15]){
-  scanf("%s", cpf);
-      if (strcmp(cpf, dados[0].cpf) == 0) {
-          return 1;
-      } else {
-          printf("Digite um CPF valido.\n");
-      }
-  return 0;
-};
-
-
-void apagarCliente(char cpf[15]){
-  int n;
-  verificaCPF(cpf);
-  for(int i = 0; i < n; i++){
-    dados[i] = dados[i-n];
-  }
-  
+void apagarCliente(int numeroClientes,char cpf[15]){ //arrumar, está apagando o cliente mesmo se o cpf é invalido
+  for(int i =0; i < numeroClientes; i ++){
+    if (strcmp(cpf, dados[i].cpf) == 0){
+      dados[i] = dados[i-1];
+    } else {
+      printf("Digite um CPF valido\n");
+    }
+  } 
 }
 
-void listaCliente(){
-  for(int i = 0; i < 1000; i++){
+void listaCliente(int numeroClientes){
+  for(int i = 0; i < numeroClientes; i++){
     printf("Nome: %s\n", dados[i].nome);
     printf("CPF: %s\n", dados[i].cpf);
     printf("Tipo da Conta: %s\n", dados[i].tipo_conta);
@@ -63,22 +52,43 @@ void listaCliente(){
   }
 }
 
-double deposito(){
-  printf("Digite o valor a ser depositado:");
+void deposito(int numeroClientes, char cpf[15]){ // arrumar print do else
   double valorDeposito;
-  scanf("%lf", &valorDeposito);
-  operacoes[0].deposito = valorDeposito;
-  dados[0].valor_incial = dados[0].valor_incial + valorDeposito;
-  return 0;
+  for(int i =0; i < numeroClientes; i ++){
+    if (strcmp(cpf, dados[i].cpf) == 0){
+      printf("Digite o valor a ser depositado:");
+      scanf("%lf", &valorDeposito);
+      operacoes[i].deposito = valorDeposito;
+      dados[i].valor_incial = dados[i].valor_incial + valorDeposito;
+      break;
+    } else {
+      printf("Digite um CPF valido\n");
+    }
+  }
 }
 
-double debito(){
-  printf("Digite o valor a ser depositado:");
+void debito(int numeroClientes, char cpf[15]){
+  double valorDigitado;
   double valorDebito;
-  scanf("%lf", &valorDebito);
-  operacoes[0].deposito = valorDebito;
-  dados[0].valor_incial = dados[0].valor_incial - valorDebito;
-  return 0;
+  for(int i =0; i < numeroClientes; i ++){
+    if (strcmp(cpf, dados[i].cpf) == 0){
+      if (strcmp(dados[i].tipo_conta, "Comum") == 0){
+        printf("Digite o valor a ser debitado: ");
+        scanf("%lf", &valorDigitado);
+        valorDebito = valorDigitado + (valorDigitado * 0.05);
+        operacoes[i].deposito = valorDebito;
+        dados[i].valor_incial = dados[i].valor_incial - valorDebito;
+      } else {
+        printf("Digite o valor a ser depositado:");
+        scanf("%lf", &valorDigitado);
+        valorDebito = valorDigitado + (valorDigitado * 0.03);
+        operacoes[i].deposito = valorDebito;
+        dados[i].valor_incial = dados[i].valor_incial - valorDebito;
+      }
+    } else {
+      printf("Digite um CPF valido\n");
+    }
+  }
 }
 
 

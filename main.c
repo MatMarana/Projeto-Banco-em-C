@@ -2,11 +2,10 @@
 #include "Library.h"
 
 int main(){
-  char cpf[15];
+  char verificaCpf[15];
   int escolha;
   int escolhaConta;
-  int *numeroDeClientes = 0;
-  Dados_Pessoas novoUsuario;
+  int numeroDeClientes = 0;
   while(1){
   printf("--------------------------------------------------\n");
   printf("Escolha a ação que deseja frealizar:\n");
@@ -24,21 +23,34 @@ int main(){
   
   switch(escolha){
     case(1):{
-      cadastraUsuario(numeroDeClientes, novoUsuario);
-      printf("Escolha o tipo da conta\n");
-      printf("Digite 1 - Para escolhar a conta Comum\n");
-      printf("Digite 2 - Para escolher a conta Premium\n");
-      scanf("%d", &escolhaConta);
-      tipoConta(numeroDeClientes,escolhaConta, novoUsuario);
+      cadastraUsuario(numeroDeClientes);
+      tipoConta(numeroDeClientes,escolhaConta);
+      numeroDeClientes++;
+      break;
     }
-    case(2):
-      printf("Digite o Cpf do usuario que deseja deletar:");
-      scanf("%s", cpf);
-      apagarCliente(cpf);
+    case(2):{
+      printf("Digite o CPF que deseja deletar: ");
+      scanf("%s", verificaCpf);
+      apagarCliente(numeroDeClientes, verificaCpf);
+      numeroDeClientes--;
     break;
-    case(3):
-      listaCliente();
+    }
+    case(3):{
+      listaCliente(numeroDeClientes);
     break;
+    }
+    case(4):{
+      printf("Digite o CPF da conta que deseja fazer o deposito: ");
+      scanf("%s", verificaCpf);
+      deposito(numeroDeClientes,verificaCpf);
+      break;
+    }
+    case(5):{
+      printf("Digite o CPF da conta que deseja fazer o debito: ");
+      scanf("%s", verificaCpf);
+      debito(numeroDeClientes, verificaCpf);
+      break;
+    }
    }
   }
 }
