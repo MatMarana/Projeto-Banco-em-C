@@ -2,6 +2,12 @@
 #include "Library.h"
 
 int main(){
+  char cpf[15];
+  int escolha;
+  int escolhaConta;
+  int *numeroDeClientes = 0;
+  Dados_Pessoas novoUsuario;
+  while(1){
   printf("--------------------------------------------------\n");
   printf("Escolha a ação que deseja frealizar:\n");
   printf("Digite 1 - Para cadastrar um novo cliente\n");
@@ -13,18 +19,26 @@ int main(){
   printf("Digite 7 - Para verificar seu extrato\n");
   printf("-------------------------------------------------\n");
   
-  int escolha;
+  
   scanf("%d", &escolha);
   
   switch(escolha){
-    case(1):
-      cadastraUsuario();
-    break;
+    case(1):{
+      cadastraUsuario(numeroDeClientes, novoUsuario);
+      printf("Escolha o tipo da conta\n");
+      printf("Digite 1 - Para escolhar a conta Comum\n");
+      printf("Digite 2 - Para escolher a conta Premium\n");
+      scanf("%d", &escolhaConta);
+      tipoConta(numeroDeClientes,escolhaConta, novoUsuario);
+    }
     case(2):
-      apagarCliente();
+      printf("Digite o Cpf do usuario que deseja deletar:");
+      scanf("%s", cpf);
+      apagarCliente(cpf);
     break;
     case(3):
       listaCliente();
     break;
    }
+  }
 }

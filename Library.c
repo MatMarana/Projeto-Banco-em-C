@@ -5,58 +5,49 @@
 Dados_Pessoas dados[1000];
 Dados_Conta operacoes[100];
 
-void cadastraUsuario(){
-    int escolhaConta;
+void cadastraUsuario(int *numeroClientes, Dados_Pessoas novoUsuario){
+    
 
     printf("Digite o nome do usuario");
-    scanf("%s", dados[0].nome);
+    scanf("%s", novoUsuario.nome);
 
     printf("Digite o Cpf do usuario");
-    scanf("%s", dados[0].cpf);
-    verificaCPF();
+    scanf("%s", novoUsuario.cpf);
 
     printf("Digite a senha do usuario");
-    scanf("%d", &dados[0].senha);
+    scanf("%d", &novoUsuario.senha);
 
     printf("Digite o valor inicial da Conta");
-    scanf("%lf", &dados[0].valor_incial);
+    scanf("%lf", &novoUsuario.valor_incial);
+  
 
-    printf("Escolha o tipo da conta\n");
-    printf("Digite 1 - Para escolhar a conta Comum\n");
-    printf("Digite 2 - Para escolher a conta Premium\n");
-    scanf("%d", &escolhaConta);
-    tipoConta(escolhaConta);
   
 }
 
-char* tipoConta(int escolha){
-    if (escolha == 1){
-      strcpy(dados[0].tipo_conta, "Comum");
-    } else if(escolha == 2) {
-      strcpy(dados[0].tipo_conta, "Premium");
-    } else {
-        printf("Digite um numero valido");
-    }
-  return 0;
+void tipoConta(int *numeroClientes, int escolhaConta,Dados_Pessoas novoUsuario){
+  if (escolhaConta == 1){
+    strcpy(novoUsuario.tipo_conta, "Comum");
+  } else if(escolhaConta == 2) {
+    strcpy(novoUsuario.tipo_conta, "Premium");
+  } else {
+      printf("Digite um numero valido");
+  }
 }
 
-int verificaCPF(){
-  char cpf[15];
+int verificaCPF(char cpf[15]){
   scanf("%s", cpf);
       if (strcmp(cpf, dados[0].cpf) == 0) {
-          printf("As duas strings são iguais.\n");
+          return 1;
       } else {
-          printf("As duas strings são diferentes.\n");
+          printf("Digite um CPF valido.\n");
       }
-      return 0;
+  return 0;
 };
 
 
-void apagarCliente(){
+void apagarCliente(char cpf[15]){
   int n;
-  char cpf[15];
-  printf("Digite o Cpf do usuario que deseja deletar:");
-  verificaCPF();
+  verificaCPF(cpf);
   for(int i = 0; i < n; i++){
     dados[i] = dados[i-n];
   }

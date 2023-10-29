@@ -18,10 +18,10 @@ typedef struct Dados_Conta{
 
 }Dados_Conta;
 
-void apagarCliente();
+void apagarCliente(char cpf[15]);
 void listaCliente();
-char* tipoConta(int escolha);
-void cadastraUsuario();
-int verificaCPF();
+void tipoConta(int *numeroClientes, int escolhaConta, Dados_Pessoas novoUsuario);
+void cadastraUsuario(int *numeroClientes,Dados_Pessoas novoUsuario);
+int verificaCPF(char cpf[15]);
 
 #endif // LIBRARY_H_INCLUDED
