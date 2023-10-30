@@ -29,7 +29,7 @@ void tipoConta(int numeroClientes, int escolhaConta){
   } else if(escolhaConta == 2) {
     strcpy(dados[numeroClientes].tipo_conta, "Premium");
   } else {
-      printf("Digite um numero valido");
+      printf("Digite um numero valido\n");
   }
 }
 
@@ -39,6 +39,7 @@ void apagarCliente(int numeroClientes,char cpf[15]){ //arrumar, está apagando o
       dados[i] = dados[i-1];
     } else {
       printf("Digite um CPF valido\n");
+      printf("\n");
     }
   } 
 }
@@ -49,6 +50,7 @@ void listaCliente(int numeroClientes){
     printf("CPF: %s\n", dados[i].cpf);
     printf("Tipo da Conta: %s\n", dados[i].tipo_conta);
     printf("Saldo: %lf\n", dados[i].valor_incial);
+    printf("\n");
   }
 }
 
@@ -63,32 +65,83 @@ void deposito(int numeroClientes, char cpf[15]){ // arrumar print do else
       break;
     } else {
       printf("Digite um CPF valido\n");
+      printf("\n");
     }
   }
 }
 
-void debito(int numeroClientes, char cpf[15]){
+void debito(int numeroClientes, char cpf[15]){ // arrumar print do else
   double valorDigitado;
   double valorDebito;
   for(int i =0; i < numeroClientes; i ++){
     if (strcmp(cpf, dados[i].cpf) == 0){
       if (strcmp(dados[i].tipo_conta, "Comum") == 0){
-        printf("Digite o valor a ser debitado: ");
-        scanf("%lf", &valorDigitado);
-        valorDebito = valorDigitado + (valorDigitado * 0.05);
-        operacoes[i].deposito = valorDebito;
-        dados[i].valor_incial = dados[i].valor_incial - valorDebito;
+        if(dados[i].valor_incial > -3000){
+          printf("Digite o valor a ser debitado: ");
+          scanf("%lf", &valorDigitado);
+          valorDebito = valorDigitado + (valorDigitado * 0.05);
+          operacoes[i].deposito = valorDebito;
+          dados[i].valor_incial = dados[i].valor_incial - valorDebito;
+          break;
+        } else {
+          printf("Saldo Insuficinete\n");
+          printf("\n");
+          break;
+        }
       } else {
-        printf("Digite o valor a ser depositado:");
-        scanf("%lf", &valorDigitado);
-        valorDebito = valorDigitado + (valorDigitado * 0.03);
-        operacoes[i].deposito = valorDebito;
-        dados[i].valor_incial = dados[i].valor_incial - valorDebito;
+        if(dados[i].valor_incial > -5000){
+          printf("Digite o valor a ser depositado:");
+          scanf("%lf", &valorDigitado);
+          valorDebito = valorDigitado + (valorDigitado * 0.03);
+          operacoes[i].deposito = valorDebito;
+          dados[i].valor_incial = dados[i].valor_incial - valorDebito;
+          break;
+        } else {
+          printf("Saldo Insuficinete\n");
+          printf("\n");
+          break;
+        }
       }
     } else {
       printf("Digite um CPF valido\n");
+      printf("\n");
     }
   }
 }
 
+void transferencia(int numeroClientes, char cpf[15]){
+char cpfEnvia[15];
+char cpfRecebe[15];
+for(int i = 0; i < numeroClientes; i ++){ //Passar a verificação
+  if(strcmp(dados[i].cpf, cpf ) == 0){
+    strcpy(cpfEnvia, cpf);
+    printf("Digite o CPF da conta que vai receber o dinheiro");
+    scanf("%s", cpfRecebe); 
+    for(int i = 0; i < numeroClientes; i++){
+      if(strcmp(cpfRecebe, dados[i].cpf) == 0){
+        printf("Digite um valor a ser transferido:");
+      } else{
+        printf("Digite um CPF existente\n");
+        printf("\n");
+        break;
+      }
+    }
+  } else {
+    printf("Digite um CPF existente\n");
+    printf("\n");
+    break;
+    }
+  }
+}
 
+void escrever(Dados_Pessoas dados){ // arrumar
+    FILE *arquivo = fopen("pessoas.bin", "ab");
+    fwrite(&dados, sizeof(Dados_Pessoas), 1, arquivo);
+    fclose(arquivo);
+}
+
+void ler(Dados_Pessoas dados){ // arrumar
+    FILE *arquivo = fopen("pessoas.bin", "rb");
+    fread(&dados, sizeof(Dados_Pessoas), 1, arquivo);
+    fclose(arquivo);
+}

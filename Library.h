@@ -7,7 +7,7 @@ typedef struct Dados_Pessoas{
     double valor_incial;
     char nome[100];
     char cpf[15];
-
+    
 }Dados_Pessoas;
 
 typedef struct Dados_Conta{
@@ -24,5 +24,7 @@ void tipoConta(int numeroClientes, int escolhaConta);
 void cadastraUsuario(int numeroClientes);
 void deposito(int numeroClientes, char cpf[15]);
 void debito(int numeroClientes, char cpf[15]);
-
+void escrever(Dados_Pessoas dados);
+void ler(Dados_Pessoas dados);
+void transferencia(int numeroClientes, char cpf[15]);
 #endif // LIBRARY_H_INCLUDED
