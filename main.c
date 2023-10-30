@@ -3,11 +3,11 @@
 
 int main(){
   char verificaCpf[15];
+  int verificaSenha;
   int escolha;
   int escolhaConta;
   int numeroDeClientes = 0;
-  ler();
-  
+  int numeroDeElementos = 0;
   while(1){
 
     printf("\n               Bem Vindo Ao Seu Banco              \n");
@@ -29,6 +29,8 @@ int main(){
   
     switch(escolha){
       case(1):{
+        printf("Digite o Cpf do usuario: ");
+        scanf("%s", verificaCpf);
         cadastraUsuario(numeroDeClientes);
         tipoConta(numeroDeClientes,escolhaConta);
         numeroDeClientes++;
@@ -49,19 +51,29 @@ int main(){
         printf("Digite o CPF da conta que deseja fazer o deposito: ");
         scanf("%s", verificaCpf);
         deposito(numeroDeClientes,verificaCpf);
+        numeroDeElementos++;
         break;
       }
       case(5):{
         printf("Digite o CPF da conta que deseja fazer o debito: ");
         scanf("%s", verificaCpf);
-        debito(numeroDeClientes, verificaCpf);
+        printf("Digite a senha da conta: ");
+        scanf("%d", &verificaSenha);
+        debito(numeroDeClientes, verificaCpf, verificaSenha);
+        numeroDeElementos++;
         break;
       }
       case(6):{
         printf("Digite o CPF da conta que deseja fazer a transferencia: ");
         scanf("%s", verificaCpf);
-        transferencia(numeroDeClientes, verificaCpf);
+        printf("Digite a senha da conta: ");
+        scanf("%d", &verificaSenha);
+        transferencia(numeroDeClientes, verificaCpf, verificaSenha);
+        numeroDeElementos++;
         break;
+      }
+      case(7):{
+        extrato(numeroDeElementos);
       }
       case(0):{
         printf("Muito Obrigado Pela Preferencia\n");

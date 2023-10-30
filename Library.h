@@ -27,8 +27,9 @@ void listaCliente(int numeroClientes);
 void tipoConta(int numeroClientes, int escolhaConta);
 void cadastraUsuario(int numeroClientes);
 void deposito(int numeroClientes, char cpf[15]);
-void debito(int numeroClientes, char cpf[15]);
+void debito(int numeroClientes, char cpf[15], int senha);
 void escrever(int quantidade_tarefa);
-int ler();
-void transferencia(int numeroClientes, char cpf[15]);
+void ler(int numeroClientes);
+void transferencia(int numeroClientes, char cpf[15], int senha);
+void extrato(int num_elementos);
 #endif // LIBRARY_H_INCLUDED
