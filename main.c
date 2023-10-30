@@ -67,7 +67,6 @@ int main(){
     }
     if(escolha == 0){
       break;
-      
     }
   }
 }
