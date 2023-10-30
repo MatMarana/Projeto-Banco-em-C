@@ -31,5 +31,5 @@ void debito(int numeroClientes, char cpf[15], int senha);
 void escrever(int quantidade_tarefa);
 void ler(int numeroClientes);
 void transferencia(int numeroClientes, char cpf[15], int senha);
-void extrato(int num_elementos);
+void extrato(int num_elementos, char cpf[15], int senha);
 #endif // LIBRARY_H_INCLUDED
