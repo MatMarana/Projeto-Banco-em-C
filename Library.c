@@ -22,6 +22,7 @@ void tipoConta(int numeroClientes, int escolhaConta){
   printf("Escolha a o tipo da sua conta:\n");
   printf("Digite 1 - Para escolher a conta Comum\n");
   printf("Digite 2 - Para escolher a conta Premium\n");
+  printf("Digite sua opção:");
   scanf("%d", &escolhaConta);
   if (escolhaConta == 1){
     strcpy(dados[numeroClientes].tipo_conta, "Comum");
@@ -75,7 +76,7 @@ void debito(int numeroClientes, char cpf[15]){ // arrumar print do else
   for(int i =0; i < numeroClientes; i ++){
     if (strcmp(cpf, dados[i].cpf) == 0){
       if (strcmp(dados[i].tipo_conta, "Comum") == 0){
-        if(dados[i].valor_incial > -3000){
+        if(dados[i].valor_incial > -1000){
           printf("Digite o valor a ser debitado: ");
           scanf("%lf", &valorDigitado);
           valorDebito = valorDigitado + (valorDigitado * 0.05);
@@ -116,7 +117,7 @@ for(int i = 0; i < numeroClientes; i ++){ //Passar a verificação
     printf("Digite um valor a ser transferido:");
     scanf("%lf", &valorEnviado);
     if (strcmp(dados[i].tipo_conta, "Comum") == 0){
-      if(dados[i].valor_incial > -3000){
+      if(dados[i].valor_incial > -1000){
         dados[i].valor_incial = dados[i].valor_incial - valorEnviado;
         dados->operacoes->transferencia = valorEnviado;
       } else {
@@ -151,14 +152,22 @@ for(int i = 0; i < numeroClientes; i ++){ //Passar a verificação
   }
 }
 
-void escrever(Dados_Pessoas dados){ // arrumar
-    FILE *arquivo = fopen("pessoas.bin", "ab");
-    fwrite(&dados, sizeof(Dados_Pessoas), 1, arquivo);
-    fclose(arquivo);
+void escrever(int numeroClientes) {
+  FILE *binario;
+  binario = fopen("binario.txt", "wb");
+  if (binario) {
+     fwrite(dados, sizeof(Dados_Pessoas), numeroClientes, binario);
+    fclose(binario);
+  }
 }
 
-void ler(Dados_Pessoas dados){ // arrumar
-    FILE *arquivo = fopen("pessoas.bin", "rb");
-    fread(&dados, sizeof(Dados_Pessoas), 1, arquivo);
-    fclose(arquivo);
+int ler(){
+  FILE *binario = fopen("binario.txt", "rb");
+  int contador = 0;
+  if (binario) {
+    while (fread(&dados[contador], sizeof(struct Dados_Pessoas), 1, binario) == 1) {
+      contador = contador +1;
+    }
+    return contador;
+  }
 }

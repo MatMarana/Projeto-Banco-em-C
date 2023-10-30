@@ -6,9 +6,11 @@ int main(){
   int escolha;
   int escolhaConta;
   int numeroDeClientes = 0;
+  ler();
+  
   while(1){
 
-    printf("               Bem Vindo Ao Seu Banco              \n");
+    printf("\n               Bem Vindo Ao Seu Banco              \n");
     printf("---------------------------------------------------\n");
     printf("Escolha a ação que deseja realizar:\n");
     printf("Digite 1 - Para cadastrar um novo cliente\n");
@@ -20,7 +22,7 @@ int main(){
     printf("Digite 7 - Para verificar seu extrato\n");
     printf("Digite 0 - Para sair\n");
     printf("\n");
-    printf("Digite sua opção ");
+    printf("Digite sua opção: ");
   
   
     scanf("%d", &escolha);
@@ -66,6 +68,7 @@ int main(){
       }
     }
     if(escolha == 0){
+      escrever(numeroDeClientes);
       break;
     }
   }
