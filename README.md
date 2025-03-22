@@ -1,9 +1,6 @@
 # Projeto-Banco-em-C
 O novo banco QuemPoupaTem vai iniciar a sua operação em breve, mas não tem um sistema bancário estabelecido. Para desenvolver o sistema que controla os clientes, o banco decidiu contratar você.
 
-O seu programa deve ser todo desenvolvido em C.
-
-Requisitos
 O banco trabalha com dois tipos de conta:
  Comum: 
 Cobra taxa de 5% a cada débito realizado
